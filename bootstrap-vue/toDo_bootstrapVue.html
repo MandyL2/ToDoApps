@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+		<!-- Required meta tags -->
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+		<title> ToDo App </title>
+
+		<!-- Required Stylesheets -->
+		<link
+			type="text/css"
+			rel="stylesheet"
+			href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css"
+		/>
+		<link
+			type="text/css"
+			rel="stylesheet"
+			href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"
+		/>
+
+		<!-- Load polyfills to support older browsers -->
+		<script src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver"></script>
+
+		<!-- Required scripts -->
+		<script src="https://unpkg.com/vue@latest/dist/vue.js"></script>
+		<script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+		<style>
+			body {
+				padding: 10px;
+				background-color: rgba(138, 198, 255, 0.815);
+				text-align: center;
+			}
+
+			table {
+				background-color: rgb(221, 233, 229);
+			}
+
+			button {
+				float: left;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<b-jumbotron
+				header="To-Do App"
+				lead="For organizing your life"
+				bg-variant="info"
+				text-variant="white"
+			>
+				<b-form-datepicker v-model="taskDate" class="taskInputs"> </b-form-datepicker>
+				<b-form-input placeholder="Enter task" v-model="taskName" class="taskInputs"> </b-form-input>
+				<b-button @click="addTask" variant="primary" :pressed="false"> Add Task </b-button>
+			</b-jumbotron>
+			<br />
+			<br />
+			<b-alert :show="taskList.length > 0 && activeTasks.length == 0"> Get started </b-alert>
+			<b-alert :show="taskList.length == 0 && activeTasks.length > 0"> Let's get this bread! </b-alert>
+			<b-alert :show="taskList.length == 0 && activeTasks.length == 0">
+				Congrats! Staying on top of things ^_^
+			</b-alert>
+			<b-alert :show="taskList.length > 0 && activeTasks.length > 0"> Working... </b-alert>
+			<br />
+
+			<b-container>
+				<b-row>
+					<b-col>
+						<b-card
+							title="To Do"
+							img-src="https://gridfiti.com/wp-content/uploads/2021/05/Gridfiti_Blog_StudyAesthetic_GIFStatics_1.jpg"
+							img-alt="Image"
+							img-top
+							tag="article"
+							style="max-width: 20rem"
+							class="mb-2"
+						>
+							<b-card-text> Things to do </b-card-text>
+							<b-table :items="taskList" :fields="fieldNames[0]">
+								<template #cell(action)="row">
+									<b-button @click="moveTask(row.index, taskList, activeTasks)" variant="warning">
+										Activate
+									</b-button>
+								</template>
+							</b-table>
+						</b-card>
+					</b-col>
+
+					<b-col>
+						<b-card
+							title="Active Tasks"
+							img-src="https://gridfiti.com/wp-content/uploads/2021/05/Gridfiti_Blog_StudyAesthetic_GIFStatics_1.jpg"
+							img-alt="Image"
+							img-top
+							tag="article"
+							style="max-width: 20rem"
+							class="mb-2"
+						>
+							<b-card-text> In progress </b-card-text>
+							<b-table :items="activeTasks" :fields="fieldNames[0]">
+								<template #cell(action)="row">
+									<b-button @click="moveTask(row.index, activeTasks, finishedTasks)" variant="warning">
+										Finish
+									</b-button>
+								</template>
+							</b-table>
+						</b-card>
+					</b-col>
+
+					<b-col>
+						<b-card
+							title="Finished Tasks"
+							img-src="https://gridfiti.com/wp-content/uploads/2021/05/Gridfiti_Blog_StudyAesthetic_GIFStatics_1.jpg"
+							img-alt="Image"
+							img-top
+							tag="article"
+							style="max-width: 20rem"
+							class="mb-2"
+						>
+							<b-card-text> Nice. </b-card-text>
+							<b-table :items="finishedTasks" :fields="fieldNames[1]"></b-table>
+						</b-card>
+					</b-col>
+				</b-row>
+			</b-container>
+		</div>
+
+		<script src="toDo.js"></script>
+	</body>
+</html>
