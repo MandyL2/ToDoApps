@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title> ToDo App </title>
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+		<style>
+			body {
+				margin: auto;
+				padding: 10px;
+				background-color: rgba(138, 198, 255, 0.815);
+				text-align: center;
+				font-family: "Lucida Console", "Courier New", monospace;
+			}
+
+			h1 {
+				padding: 30px;
+			}
+
+			table,
+			th,
+			td {
+				border-radius: 5px;
+			}
+
+			table {
+				background-color: rgb(221, 233, 229);
+				margin: auto;
+				width: 70%;
+				border-bottom: 2px solid rgb(73, 168, 137);
+				border-right: 2px solid rgb(73, 168, 137);
+			}
+
+			th {
+				width: 35%;
+				padding: 5px 10px 5px 10px;
+				background-color: rgb(58, 120, 170);
+				color: white;
+			}
+			td {
+				width: 35%;
+				align-items: center;
+				padding: 5px 10px 5px 10px;
+			}
+
+			input {
+				padding: 15px;
+				border-radius: 5px;
+			}
+
+			button {
+				padding: 5px;
+				background-color: rgb(255, 247, 134);
+				border: none;
+			}
+
+			button:hover {
+				background-color: rgb(228, 220, 109);
+			}
+
+			#title {
+				background-color: rgb(40, 40, 102);
+				color: white;
+			}
+
+			#task {
+				width: 35%;
+			}
+
+			.buttonCol {
+				width: 2%;
+			}
+
+			.dateDue {
+				width: 20%;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<h1 id="title"> To-Do App </h1>
+			<input type="date" v-model="taskDate" />
+			<input type="text" placeholder="Enter task" v-model="taskName" id="task" />
+			<button @click="addTask"> Add Task </button>
+			<h1 v-if="taskList.length > 0 && activeTasks.length == 0"> Get started </h1>
+			<h1 v-else-if="taskList.length == 0 && activeTasks.length > 0"> Let's get this bread! </h1>
+			<h1 v-else-if="taskList.length == 0 && activeTasks.length == 0">
+				Congrats! Staying on top of things ^_^
+			</h1>
+			<h1 v-else> Working... </h1>
+			<br />
+
+			<!-- what the table setup would look like without using javascript to generate it
+			<table>
+				<tr>
+					<th> Date </th>
+					<th colspan="2"> To Do </th>
+				</tr>
+				<tr v-for="(task, index) in taskList">
+					<td> {{task.date}} </td>
+					<td> {{task.task}}</td>
+					<td class="buttonCol">
+						<button @click="moveTask(index, taskList, activeTasks)"> Select </button>
+					</td>
+				</tr>
+			</table>
+			<br /> 
+			<table>
+				<tr>
+					<th> Date </th>
+					<th colspan="2"> Active Tasks </th>
+				</tr>
+				<tr v-for="(active, index) in activeTasks">
+					<td> {{active.date}} </td>
+					<td> {{active.task}} </td>
+					<td class="buttonCol">
+						<button @click="moveTask(index, activeTasks, finishedTasks)"> Select </button>
+					</td>
+				</tr>
+			</table>
+			<br />
+			<table>
+				<tr>
+					<th> Date </th>
+					<th> Finished Tasks </th>
+				</tr>
+				<tr v-for="(finish, index) in finishedTasks">
+					<td> {{finish.date}} </td>
+					<td> {{finish.task}} </td>
+				</tr>
+			</table> -->
+		</div>
+		<script src="toDo.js"></script>
+	</body>
+</html>
